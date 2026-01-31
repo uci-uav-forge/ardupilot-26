@@ -444,12 +444,14 @@ const AP_Param::GroupInfo SIM::var_info2[] = {
     // @DisplayName: Original Position (Latitude)
     // @Description: Specifies vehicle's startup latitude
     // @User: Advanced
-    AP_GROUPINFO("OPOS_LAT",    51, SIM,  opos.lat, -35.363261f),
+    // AP_GROUPINFO("OPOS_LAT",    51, SIM,  opos.lat, -35.363261f),
+    AP_GROUPINFO("OPOS_LAT",    51, SIM,  opos.lat, 33.641388717363895f),
     // @Param: OPOS_LNG
     // @DisplayName: Original Position (Longitude)
     // @Description: Specifies vehicle's startup longitude
     // @User: Advanced
-    AP_GROUPINFO("OPOS_LNG",    52, SIM,  opos.lng, 149.165230f),
+    // AP_GROUPINFO("OPOS_LNG",    52, SIM,  opos.lng, 149.165230f),
+    AP_GROUPINFO("OPOS_LNG",    52, SIM,  opos.lng, -117.82531781422789f),
     // @Param: OPOS_ALT
     // @DisplayName: Original Position (Altitude)
     // @Description: Specifies vehicle's startup altitude (AMSL)

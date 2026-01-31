@@ -292,6 +292,7 @@ class MAVProxyLaunch:
         sitl = LaunchConfiguration("sitl").perform(context)
         console = LaunchConfiguration("console").perform(context)
         map = LaunchConfiguration("map").perform(context)
+        streamrate = LaunchConfiguration("streamrate").perform(context)
 
         # Display launch arguments.
         print(f"command:          {command}")
@@ -300,6 +301,7 @@ class MAVProxyLaunch:
         print(f"out:              {out}")
         print(f"console:          {console}")
         print(f"map:              {map}")
+        print(f"streamrate:      {streamrate}")
 
         cmd = [
             f"{command} ",
@@ -309,6 +311,7 @@ class MAVProxyLaunch:
             f"--master {master} ",
             f"--sitl {sitl} ",
             "--non-interactive ",
+            f"--streamrate {streamrate} ",
         ]
 
         if console == TRUE_STRING:
@@ -374,6 +377,11 @@ class MAVProxyLaunch:
             ),
             DeclareLaunchArgument(
                 "console", default_value="False", description="Enable MAVProxy Console.", choices=BOOL_STRING_CHOICES
+            ),
+            DeclareLaunchArgument(
+                "streamrate",
+                default_value="-1",
+                description="Set MAVLink stream rate in Hz.",
             ),
         ]
 
