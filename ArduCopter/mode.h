@@ -100,6 +100,7 @@ public:
         AUTOROTATE =   26,  // Autonomous autorotation
         AUTO_RTL =     27,  // Auto RTL, this is not a true mode, AUTO will report as this mode if entered to perform a DO_LAND_START Landing sequence
         TURTLE =       28,  // Flip over after crash
+        NEWMODE =      29,  // New mode for experimentation
 
         // Mode number 127 reserved for the "drone show mode" in the Skybrush
         // fork at https://github.com/skybrush-io/ardupilot
@@ -2051,3 +2052,25 @@ private:
 
 };
 #endif
+
+class ModeNewMode : public Mode {
+
+public:
+    using Mode::Mode;
+    // Implements all the initialization for the mode
+    bool init(bool ignore_checks) override;
+    // Called at 400hz and should implement any pilot input decoding and then set position and attitude targets
+    void run() override;
+
+    // Optional additional overrides
+    bool requires_GPS() const override { return false; }
+    bool has_manual_throttle() const override { return true; }
+    bool allows_arming(bool from_gcs) const override { return true; };
+    bool is_autopilot() const override { return false; }
+
+protected:
+    // These are for logging
+    const char *name() const override { return "NEWMODE"; }
+    const char *name4() const override { return "NWMD"; }
+
+};

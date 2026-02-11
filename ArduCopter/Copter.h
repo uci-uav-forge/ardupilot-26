@@ -1036,7 +1036,7 @@ private:
 #endif
 #if MODE_POSHOLD_ENABLED
     ModePosHold mode_poshold;
-#endif
+#endif// rtl_init - initialise rtl controller
 #if MODE_RTL_ENABLED
     ModeRTL mode_rtl;
 #endif
@@ -1074,6 +1074,10 @@ private:
 #endif
 #if MODE_TURTLE_ENABLED
     ModeTurtle mode_turtle;
+#endif
+#if MODE_NEWMODE_ENABLED
+    // We can optionally add a flag
+    ModeNewMode mode_newmode; //Instantiated new mode, indented to match style, dont need conditional headers
 #endif
 
     // mode.cpp

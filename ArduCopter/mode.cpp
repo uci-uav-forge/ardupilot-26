@@ -179,6 +179,14 @@ Mode *Copter::mode_from_mode_num(const Mode::Number mode)
             break;
 #endif
 
+// We add the new mode mapping, add the flags as well
+#if MODE_NEWMODE_ENABLED
+        case Mode::Number::NEWMODE:
+            // Map it to the instance of the class we created in Copter.h
+            ret = &mode_newmode;
+            break;
+#endif
+
         default:
             break;
     }
