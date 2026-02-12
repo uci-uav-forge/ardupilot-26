@@ -2062,10 +2062,12 @@ public:
     // Called at 400hz and should implement any pilot input decoding and then set position and attitude targets
     void run() override;
 
+    Mode::Number mode_number() const override { return Mode::Number::NEWMODE; }
+
     // Optional additional overrides
     bool requires_GPS() const override { return false; }
     bool has_manual_throttle() const override { return true; }
-    bool allows_arming(bool from_gcs) const override { return true; };
+    bool allows_arming(AP_Arming::Method method) const override { return true; }
     bool is_autopilot() const override { return false; }
 
 protected:

@@ -2,7 +2,7 @@
 
 
 // Here we initialize any starting conditions for the mode
-bool ModeNewmode::init(bool ignore_checks)
+bool ModeNewMode::init(bool ignore_checks)
 {
     return true;
 }

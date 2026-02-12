@@ -1036,7 +1036,7 @@ private:
 #endif
 #if MODE_POSHOLD_ENABLED
     ModePosHold mode_poshold;
-#endif// rtl_init - initialise rtl controller
+#endif
 #if MODE_RTL_ENABLED
     ModeRTL mode_rtl;
 #endif
