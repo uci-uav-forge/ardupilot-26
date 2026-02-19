@@ -1055,6 +1055,7 @@ ap_message GCS_MAVLINK::mavlink_id_to_ap_message_id(const uint32_t mavlink_id) c
         { MAVLINK_MSG_ID_ATTITUDE_QUATERNION,   MSG_ATTITUDE_QUATERNION},
         { MAVLINK_MSG_ID_GLOBAL_POSITION_INT,   MSG_LOCATION},
         { MAVLINK_MSG_ID_LOCAL_POSITION_NED,    MSG_LOCAL_POSITION},
+        { MAVLINK_MSG_ID_LOCAL_POSITION_NED_COV, MSG_LOCAL_POSITION_COV},
         { MAVLINK_MSG_ID_VFR_HUD,               MSG_VFR_HUD},
 #endif
         { MAVLINK_MSG_ID_HWSTATUS,              MSG_HWSTATUS},
@@ -2990,6 +2991,43 @@ void GCS_MAVLINK::send_local_position() const
         velocity.x,
         velocity.y,
         velocity.z);
+}
+#endif
+
+#if AP_AHRS_ENABLED
+/*
+  send LOCAL_POSITION_NED_COV message
+ */
+void GCS_MAVLINK::send_local_position_cov() const
+{
+    const AP_AHRS &ahrs = AP::ahrs();
+
+    Vector3f local_position, velocity;
+    if (!ahrs.get_relative_position_NED_origin(local_position) ||
+        !ahrs.get_velocity_NED(velocity)) {
+        // we don't know the position and velocity
+        return;
+    }
+    uint64_t time_usec = 0;
+    uint8_t estimator_type = 0;
+    float zero_accel = 0;
+    float cov_array[45];
+
+    mavlink_msg_local_position_ned_cov_send(
+        chan,
+        time_usec,
+        estimator_type,
+        local_position.x,
+        local_position.y,
+        local_position.z,
+        velocity.x,
+        velocity.y,
+        velocity.z
+        zero_accel,
+        zero_accel,
+        zero_accel,
+        cov_array
+    );
 }
 #endif
 
@@ -6220,6 +6258,12 @@ bool GCS_MAVLINK::try_send_message(const enum ap_message id)
     case MSG_LOCAL_POSITION:
         CHECK_PAYLOAD_SIZE(LOCAL_POSITION_NED);
         send_local_position();
+        break;
+#endif
+#if AP_AHRS_ENABLED
+    case MSG_LOCAL_POSITION_COV:
+        CHECK_PAYLOAD_SIZE(LOCAL_POSITION_NED_COV);
+        send_local_position_cov();
         break;
 #endif
 
