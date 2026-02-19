@@ -3022,7 +3022,7 @@ void GCS_MAVLINK::send_local_position_cov() const
         local_position.z,
         velocity.x,
         velocity.y,
-        velocity.z
+        velocity.z,
         zero_accel,
         zero_accel,
         zero_accel,
