@@ -1486,6 +1486,10 @@ void GCS_MAVLINK_Copter::handle_message_set_position_target_global_int(const mav
 }
 #endif  // MODE_GUIDED_ENABLED
 
+void GCS_MAVLINK_Copter::handle_message_battery_status(const mavlink_message_t &msg) {
+    gcs().send_to_active_channels(MAVLINK_MSG_ID_BATTERY_STATUS, (const char*)&msg.payload64[0]);
+}
+
 void GCS_MAVLINK_Copter::handle_message(const mavlink_message_t &msg)
 {
 
@@ -1510,6 +1514,11 @@ void GCS_MAVLINK_Copter::handle_message(const mavlink_message_t &msg)
 #if TOY_MODE_ENABLED
     case MAVLINK_MSG_ID_NAMED_VALUE_INT:
         copter.g2.toy_mode.handle_message(msg);
+        break;
+#endif
+#if AP_BATTERY_ENABLED
+    case MAVLINK_MSG_ID_BATTERY_STATUS:
+        handle_message_battery_status(msg);
         break;
 #endif
     default:
