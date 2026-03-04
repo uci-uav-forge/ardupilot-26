@@ -1487,7 +1487,7 @@ void GCS_MAVLINK_Copter::handle_message_set_position_target_global_int(const mav
 #endif  // MODE_GUIDED_ENABLED
 
 void GCS_MAVLINK_Copter::handle_message_battery_status(const mavlink_message_t &msg) {
-    gcs().send_to_active_channels(MAVLINK_MSG_ID_BATTERY_STATUS, (const char*)&msg.payload64[0]);
+    gcs().send_to_active_channels(MAVLINK_MSG_ID_BATTERY_STATUS, &msg);
 }
 
 void GCS_MAVLINK_Copter::handle_message(const mavlink_message_t &msg)
@@ -1541,7 +1541,7 @@ MAV_RESULT GCS_MAVLINK_Copter::handle_flight_termination(const mavlink_command_i
     return MAV_RESULT_FAILED;
 }
 
-float GCS_MAVLINK_Copter::vfr_hud_alt() const
+float GCS_MAVLINK_Copter::vfr_hud_alt() const784486
 {
     if (copter.g2.dev_options.get() & DevOptionVFR_HUDRelativeAlt) {
         // compatibility option for older mavlink-aware devices that
