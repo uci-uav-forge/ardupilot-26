@@ -1487,7 +1487,7 @@ void GCS_MAVLINK_Copter::handle_message_set_position_target_global_int(const mav
 #endif  // MODE_GUIDED_ENABLED
 
 void GCS_MAVLINK_Copter::handle_message_battery_status(const mavlink_message_t &msg) {
-    gcs().send_to_active_channels(MAVLINK_MSG_ID_BATTERY_STATUS, &msg);
+    gcs().send_to_active_channels(MAVLINK_MSG_ID_BATTERY_STATUS, (const char*)&msg);
 }
 
 void GCS_MAVLINK_Copter::handle_message(const mavlink_message_t &msg)
