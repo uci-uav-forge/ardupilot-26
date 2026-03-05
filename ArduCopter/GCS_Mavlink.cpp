@@ -1541,7 +1541,7 @@ MAV_RESULT GCS_MAVLINK_Copter::handle_flight_termination(const mavlink_command_i
     return MAV_RESULT_FAILED;
 }
 
-float GCS_MAVLINK_Copter::vfr_hud_alt() const784486
+float GCS_MAVLINK_Copter::vfr_hud_alt() const
 {
     if (copter.g2.dev_options.get() & DevOptionVFR_HUDRelativeAlt) {
         // compatibility option for older mavlink-aware devices that
