@@ -50,7 +50,7 @@ protected:
     void handle_message_set_position_target_global_int(const mavlink_message_t &msg);
     void handle_message_set_position_target_local_ned(const mavlink_message_t &msg);
 
-    void GCS_MAVLINK_Copter::handle_message_battery_status(const mavlink_message_t &msg);
+    void handle_message_battery_status(const mavlink_message_t &msg);
 
     void handle_landing_target(const mavlink_landing_target_t &packet, uint32_t timestamp_ms) override;
 
