@@ -416,6 +416,8 @@ public:
     // critical for use by other subsystems.
     uint8_t getIMUIndex(void) const { return gyro_index_active; }
 
+    void getP(float[45] P) const;
+
     // values for EK3_MAG_CAL
     enum class MagCal {
         WHEN_FLYING = 0,

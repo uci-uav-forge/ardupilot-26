@@ -620,6 +620,18 @@ void NavEKF3_core::CovarianceInit()
 
 }
 
+void NavEKF3_core::getP(float[45] out) {
+    // posx,posy,posz,velx,vely,velz, accelx,accely,accelz
+    uint8_t variances[9] = {P[7][7],P[8][8],P[9][9],P[4][4],P[5][5],P[6][6],0,0,0};
+    int k = 0; 
+    for (int i = 0; i < 9;i++){
+        for (int j = 0; j < i;k++){
+            out[k] = variances[i]*variances[j];
+            k++;
+        }
+    }
+}
+
 /********************************************************
 *                 UPDATE FUNCTIONS                      *
 ********************************************************/

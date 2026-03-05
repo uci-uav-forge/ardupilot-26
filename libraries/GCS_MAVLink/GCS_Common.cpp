@@ -3013,6 +3013,9 @@ void GCS_MAVLINK::send_local_position_cov() const
     float zero_accel = 0;
     float cov_array[45];
 
+    int primary_core_idx = ahrs.EKF3.getPrimaryCoreIndex();
+    ahrs.EKF3.core[primary_core_idx].getP(cov_array);
+
     mavlink_msg_local_position_ned_cov_send(
         chan,
         time_usec,
