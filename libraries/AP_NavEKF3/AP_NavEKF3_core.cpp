@@ -623,7 +623,7 @@ void NavEKF3_core::CovarianceInit()
 
 void NavEKF3_core::getP(float* out) const {
     // posx,posy,posz,velx,vely,velz, accelx,accely,accelz
-    float variances[9] = {static_cast<float>(P[7][7]),static_cast<float>(P[8][8]),static_cast<float>(P[9][9]),static_cast<float>(P[4][4]),static_cast<float>(P[5][5]),static_cast<float>(P[6][6]),0,0,0};
+    float variances[9] = {static_cast<float>(P[7][7]),static_cast<float>(P[8][8]),static_cast<float>(P[9][9]),static_cast<float>(P[4][4]),static_cast<float>(P[5][5]),static_cast<float>(P[6][6]),static_cast<float>(P[1][1]),static_cast<float>(P[2][2]),static_cast<float>(P[3][3])};
     
     int k = 0; 
     for (int i = 0; i < 9;i++){
