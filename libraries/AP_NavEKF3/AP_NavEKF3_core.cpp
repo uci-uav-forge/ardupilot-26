@@ -586,6 +586,7 @@ void NavEKF3_core::CovarianceInit()
 
     // velocities
     P[4][4]   = sq(frontend->_gpsHorizVelNoise);
+    //GCS_SEND_TEXT(MAV_SEVERITY_INFO, "bruh: %f", P[4][4]);
     P[5][5]   = P[4][4];
     P[6][6]   = sq(frontend->_gpsVertVelNoise);
     // positions
@@ -620,13 +621,14 @@ void NavEKF3_core::CovarianceInit()
 
 }
 
-void NavEKF3_core::getP(float[45] out) {
+void NavEKF3_core::getP(float* out) const {
     // posx,posy,posz,velx,vely,velz, accelx,accely,accelz
-    uint8_t variances[9] = {P[7][7],P[8][8],P[9][9],P[4][4],P[5][5],P[6][6],0,0,0};
+    float variances[9] = {static_cast<float>(P[7][7]),static_cast<float>(P[8][8]),static_cast<float>(P[9][9]),static_cast<float>(P[4][4]),static_cast<float>(P[5][5]),static_cast<float>(P[6][6]),0,0,0};
+    
     int k = 0; 
     for (int i = 0; i < 9;i++){
-        for (int j = 0; j < i;k++){
-            out[k] = variances[i]*variances[j];
+        for (int j = 0; j < i;j++){
+            out[k] = variances[i] * variances[j];
             k++;
         }
     }

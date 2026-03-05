@@ -75,6 +75,8 @@
 #include <AP_Notify/AP_Notify.h>
 #include <AP_Vehicle/AP_Vehicle_config.h>
 
+#include <AP_NavEKF3/AP_NavEKF3_core.h>
+
 #include <stdio.h>
 
 #if AP_RADIO_ENABLED
@@ -3013,8 +3015,12 @@ void GCS_MAVLINK::send_local_position_cov() const
     float zero_accel = 0;
     float cov_array[45];
 
-    int primary_core_idx = ahrs.EKF3.getPrimaryCoreIndex();
-    ahrs.EKF3.core[primary_core_idx].getP(cov_array);
+    //int primary_core_idx = ahrs.EKF3.getPrimaryCoreIndex();
+    
+    NavEKF3_core* core = ahrs.EKF3.core;
+    //GCS_SEND_TEXT(MAV_SEVERITY_INFO, "cov %d", core->super_test);
+    if (core)
+        core->getP(cov_array);
 
     mavlink_msg_local_position_ned_cov_send(
         chan,
