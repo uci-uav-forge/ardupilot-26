@@ -622,13 +622,13 @@ void NavEKF3_core::CovarianceInit()
 }
 
 void NavEKF3_core::getP(float* out) const {
-    // posx,posy,posz,velx,vely,velz, accelx,accely,accelz
-    float variances[9] = {static_cast<float>(P[7][7]),static_cast<float>(P[8][8]),static_cast<float>(P[9][9]),static_cast<float>(P[4][4]),static_cast<float>(P[5][5]),static_cast<float>(P[6][6]),static_cast<float>(P[1][1]),static_cast<float>(P[2][2]),static_cast<float>(P[3][3])};
+    // posx,posy,posz,velx,vely,velz,accelx,accely,accelz    
+    int idx[10] = {0,7,8,9,4,5,6,1,2,3}; // array to convert from adrupilot P matrix to mavlink P matrix
     
     int k = 0; 
-    for (int i = 0; i < 9;i++){
-        for (int j = 0; j < i;j++){
-            out[k] = variances[i] * variances[j];
+    for (int i = 1; i < 10;i++){
+        for (int j = i; j < 10;j++){
+            out[k] = P[idx[i]][idx[j]];
             k++;
         }
     }
