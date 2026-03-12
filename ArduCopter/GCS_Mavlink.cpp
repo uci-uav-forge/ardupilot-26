@@ -1490,11 +1490,11 @@ void GCS_MAVLINK_Copter::handle_message_battery_status(const mavlink_message_t &
     mavlink_battery_status_t battery_status;
     mavlink_msg_battery_status_decode(&msg, &battery_status);
     
-    gcs().send_text(MAV_SEVERITY_INFO, "Battery status received: temp=%d soc=%d",
-        battery_status.temperature,
-        battery_status.battery_remaining);
+    // gcs().send_text(MAV_SEVERITY_INFO, "Battery status received: temp=%d soc=%d",
+    //     battery_status.temperature,
+    //     battery_status.battery_remaining);
 
-    gcs().send_to_active_channels(MAVLINK_MSG_ID_BATTERY_STATUS, (const char*)&msg);
+    gcs().send_to_active_channels(MAVLINK_MSG_ID_BATTERY_STATUS, (const char*)&battery_status);
     
 }
 
@@ -1526,7 +1526,7 @@ void GCS_MAVLINK_Copter::handle_message(const mavlink_message_t &msg)
 #endif
 #if AP_BATTERY_ENABLED
     case MAVLINK_MSG_ID_BATTERY_STATUS:
-        gcs().send_text(MAV_SEVERITY_INFO, "Reached battery status case");
+        // gcs().send_text(MAV_SEVERITY_INFO, "Reached battery status case");
         handle_message_battery_status(msg);
         break;
 #endif
