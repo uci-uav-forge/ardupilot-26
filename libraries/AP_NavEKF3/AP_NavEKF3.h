@@ -365,6 +365,9 @@ public:
     // get a yaw estimator instance
     const EKFGSF_yaw *get_yawEstimator(void) const;
 
+    // returns a pointer to the core
+    const NavEKF3_core* getCore();
+
 private:
     class AP_DAL &dal;
 

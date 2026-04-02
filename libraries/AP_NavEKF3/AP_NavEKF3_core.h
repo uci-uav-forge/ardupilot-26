@@ -415,6 +415,9 @@ public:
     // get the IMU index. For now we return the gyro index, as that is most
     // critical for use by other subsystems.
     uint8_t getIMUIndex(void) const { return gyro_index_active; }
+    
+    // returns the covariance maxtrix. Used for local position.  
+    void getP(float* out) const;
 
     // values for EK3_MAG_CAL
     enum class MagCal {

@@ -586,6 +586,7 @@ void NavEKF3_core::CovarianceInit()
 
     // velocities
     P[4][4]   = sq(frontend->_gpsHorizVelNoise);
+    //GCS_SEND_TEXT(MAV_SEVERITY_INFO, "bruh: %f", P[4][4]);
     P[5][5]   = P[4][4];
     P[6][6]   = sq(frontend->_gpsVertVelNoise);
     // positions
@@ -618,6 +619,19 @@ void NavEKF3_core::CovarianceInit()
     Popt = 0.25f;
 #endif
 
+}
+// return the covariance matrix
+void NavEKF3_core::getP(float* out) const {
+    // posx,posy,posz,velx,vely,velz,accelx,accely,accelz    
+    int idx[10] = {0,7,8,9,4,5,6,1,2,3}; // array to convert from adrupilot P matrix to mavlink P matrix
+    
+    int k = 0; 
+    for (int i = 1; i < 10;i++){
+        for (int j = i; j < 10;j++){
+            out[k] = P[idx[i]][idx[j]];
+            k++;
+        }
+    }
 }
 
 /********************************************************

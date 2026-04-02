@@ -2090,3 +2090,8 @@ const EKFGSF_yaw *NavEKF3::get_yawEstimator(void) const
     }
     return nullptr;
 }
+
+// returns a pointer to the core
+NavEKF3_core* getCore(){
+    return core;
+}
