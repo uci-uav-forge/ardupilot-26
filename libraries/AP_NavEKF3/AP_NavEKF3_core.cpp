@@ -620,7 +620,7 @@ void NavEKF3_core::CovarianceInit()
 #endif
 
 }
-
+// return the covariance matrix
 void NavEKF3_core::getP(float* out) const {
     // posx,posy,posz,velx,vely,velz,accelx,accely,accelz    
     int idx[10] = {0,7,8,9,4,5,6,1,2,3}; // array to convert from adrupilot P matrix to mavlink P matrix

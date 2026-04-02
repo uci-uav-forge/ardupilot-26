@@ -365,14 +365,15 @@ public:
     // get a yaw estimator instance
     const EKFGSF_yaw *get_yawEstimator(void) const;
 
-    NavEKF3_core *core = nullptr;
+    // returns a pointer to the core
+    const NavEKF3_core* getCore();
 
 private:
     class AP_DAL &dal;
 
     uint8_t num_cores; // number of allocated cores
     uint8_t primary;   // current primary core
-    
+    NavEKF3_core *core = nullptr;
 
     uint32_t _frameTimeUsec;        // time per IMU frame
     uint8_t  _framesPerPrediction;  // expected number of IMU frames per prediction

@@ -3014,11 +3014,8 @@ void GCS_MAVLINK::send_local_position_cov() const
     uint8_t estimator_type = 0;
     float zero_accel = 0;
     float cov_array[45];
-
-    //int primary_core_idx = ahrs.EKF3.getPrimaryCoreIndex();
     
-    NavEKF3_core* core = ahrs.EKF3.core;
-    //GCS_SEND_TEXT(MAV_SEVERITY_INFO, "cov %d", core->super_test);
+    NavEKF3_core* core = ahrs.EKF3.getCore();
     if (core)
         core->getP(cov_array);
 
