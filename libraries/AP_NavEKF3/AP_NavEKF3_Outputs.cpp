@@ -193,6 +193,7 @@ bool NavEKF3_core::getWind(Vector3f &wind) const
     wind.x = stateStruct.wind_vel.x;
     wind.y = stateStruct.wind_vel.y;
     wind.z = 0.0f; // currently don't estimate this
+    //gcs().send_text(MAV_SEVERITY_INFO, "wind x: %lf, wind y: %lf", wind.x, wind.y);
     return !inhibitWindStates;
 }
 

@@ -842,12 +842,14 @@ void NavEKF3_core::correctEkfOriginHeight()
 // check for new airspeed data and update stored measurements if available
 void NavEKF3_core::readAirSpdData()
 {
+    //gcs().send_text(MAV_SEVERITY_INFO, "hi");
     const float EAS2TAS = dal.get_EAS2TAS();
     // if airspeed reading is valid and is set by the user to be used and has been updated then
     // we take a new reading, convert from EAS to TAS and set the flag letting other functions
     // know a new measurement is available
 
     if (useAirspeed()) {
+        gcs().send_text(MAV_SEVERITY_INFO, "bruh");
         const auto *airspeed = dal.airspeed();
         if (airspeed &&
             (airspeed->last_update_ms(selected_airspeed) - timeTasReceived_ms) > frontend->sensorIntervalMin_ms) {
@@ -866,9 +868,13 @@ void NavEKF3_core::readAirSpdData()
         // Check the buffer for measurements that have been overtaken by the fusion time horizon and need to be fused
         tasDataToFuse = storedTAS.recall(tasDataDelayed,imuDataDelayed.time_ms);
     } else {
+        //gcs().send_text(MAV_SEVERITY_INFO, "ah");
+        defaultAirSpeed = 5.0;
         if (is_positive(defaultAirSpeed)) {
             // this is the preferred method with the autopilot providing a model based airspeed estimate
+            gcs().send_text(MAV_SEVERITY_INFO, "mar");
             if (imuDataDelayed.time_ms - prevTasStep_ms > 200 ) {
+                //gcs().send_text(MAV_SEVERITY_INFO, "here");
                 tasDataDelayed.tas = defaultAirSpeed * EAS2TAS;
                 tasDataDelayed.tasVariance = MAX(defaultAirSpeedVariance, sq(MAX(frontend->_easNoise, 0.5f)));
                 tasDataToFuse = true;
@@ -1046,7 +1052,8 @@ void NavEKF3_core::writeEulerYawAngle(float yawAngle, float yawAngleErr, uint32_
 // Writes the default equivalent airspeed and 1-sigma uncertainty in m/s to be used in forward flight if a measured airspeed is required and not available.
 void NavEKF3_core::writeDefaultAirSpeed(float airspeed, float uncertainty)
 {
-    defaultAirSpeed = airspeed;
+    gcs().send_text(MAV_SEVERITY_INFO, "fah");
+    defaultAirSpeed = 5.0;
     defaultAirSpeedVariance = sq(uncertainty);
 }
 

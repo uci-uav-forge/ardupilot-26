@@ -59,19 +59,20 @@ NavEKF3_core::MagCal NavEKF3_core::effective_magCal(void) const
 // avoid unnecessary operations
 void NavEKF3_core::setWindMagStateLearningMode()
 {
-    const bool canEstimateWind = ((finalInflightYawInit && dragFusionEnabled) || assume_zero_sideslip()) &&
-                                 !onGround &&
-                                 PV_AidingMode != AID_NONE;
+    // const bool canEstimateWind = ((finalInflightYawInit && dragFusionEnabled) || assume_zero_sideslip()) &&
+    //                              !onGround &&
+    //                              PV_AidingMode != AID_NONE;
+    // gcs().send_text(MAV_SEVERITY_INFO, "Can estimate wind %d.", canEstimateWind);
+    const bool canEstimateWind = true;
     if (!inhibitWindStates && !canEstimateWind) {
         inhibitWindStates = true;
         lastAspdEstIsValid = false;
         updateStateIndexLim();
-    } else if (inhibitWindStates && canEstimateWind &&
-               (sq(stateStruct.velocity.x) + sq(stateStruct.velocity.y) > sq(5.0f) || dragFusionEnabled)) {
+    } else if (true) {
         inhibitWindStates = false;
         updateStateIndexLim();
         // set states and variances
-        if (yawAlignComplete && assume_zero_sideslip()) {
+        if (true) {
             // if we have a valid heading, set the wind states to the reciprocal of the vehicle heading
             // which assumes the vehicle has launched into the wind
             // use airspeed if if recent data available
@@ -79,6 +80,7 @@ void NavEKF3_core::setWindMagStateLearningMode()
             stateStruct.quat.to_euler(tempEuler.x, tempEuler.y, tempEuler.z);
             ftype trueAirspeedVariance;
             const bool haveAirspeedMeasurement = (tasDataDelayed.allowFusion && (imuDataDelayed.time_ms - tasDataDelayed.time_ms < 500) && useAirspeed());
+            //gcs().send_text(MAV_SEVERITY_INFO, "allow fusion: %d, diff: %d, airspeed: %d", tasDataDelayed.allowFusion, (imuDataDelayed.time_ms - tasDataDelayed.time_ms), useAirspeed());
             if (haveAirspeedMeasurement) {
                 trueAirspeedVariance = constrain_ftype(tasDataDelayed.tasVariance, WIND_VEL_VARIANCE_MIN, WIND_VEL_VARIANCE_MAX);
                 const ftype windSpeed =  sqrtF(sq(stateStruct.velocity.x) + sq(stateStruct.velocity.y)) - tasDataDelayed.tas;

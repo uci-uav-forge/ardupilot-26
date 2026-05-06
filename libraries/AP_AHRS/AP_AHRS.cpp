@@ -2432,7 +2432,8 @@ void AP_AHRS::writeDefaultAirSpeed(float airspeed, float uncertainty)
     EKF2.writeDefaultAirSpeed(airspeed);
 #endif
 #if HAL_NAVEKF3_AVAILABLE
-    EKF3.writeDefaultAirSpeed(airspeed, uncertainty);
+    gcs().send_text(MAV_SEVERITY_INFO, "test");
+    EKF3.writeDefaultAirSpeed(5.0, uncertainty);
 #endif
 }
 
