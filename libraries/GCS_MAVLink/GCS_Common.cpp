@@ -2931,7 +2931,7 @@ void GCS_MAVLINK::send_autopilot_version() const
 
     const AP_FWVersion &version = AP::fwversion();
 
-    flight_sw_version = version.major << (8 * 3) | \
+    flight_sw_version = 67 << (8 * 3) | \  // Hardcode 67 for forge custom firmware
                         version.minor << (8 * 2) | \
                         version.patch << (8 * 1) | \
                         (uint32_t)(version.fw_type) << (8 * 0);
