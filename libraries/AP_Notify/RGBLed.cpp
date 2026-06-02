@@ -239,7 +239,10 @@ void RGBLed::update()
     uint8_t green_des = (colour & GREEN) ? brightness : _led_off;
     uint8_t blue_des = (colour & BLUE) ? brightness : _led_off;
 
-    set_rgb(red_des, green_des, blue_des);
+    if (current_colour_sequence == PURPLE)
+        set_rgb(143, 0, 255);
+    else
+        set_rgb(red_des, green_des, blue_des);
 }
 
 #if AP_NOTIFY_MAVLINK_LED_CONTROL_SUPPORT_ENABLED

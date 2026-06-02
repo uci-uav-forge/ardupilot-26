@@ -89,6 +89,7 @@ private:
 #define RED    4
 #define YELLOW (RED|GREEN)
 #define WHITE (RED|GREEN|BLUE)
+#define PURPLE 8
 
     const uint32_t sequence_initialising = DEFINE_COLOUR_SEQUENCE_ALTERNATE(RED,BLUE);
     const uint32_t sequence_trim_or_esc = DEFINE_COLOUR_SEQUENCE(RED,BLUE,GREEN,RED,BLUE,GREEN,RED,BLUE,GREEN,BLACK);
@@ -97,7 +98,7 @@ private:
     const uint32_t sequence_failsafe_gps_glitching = DEFINE_COLOUR_SEQUENCE_FAILSAFE(BLUE);
     const uint32_t sequence_failsafe_radio_or_battery = DEFINE_COLOUR_SEQUENCE_FAILSAFE(BLACK);
 
-    const uint32_t sequence_armed = DEFINE_COLOUR_SEQUENCE_SOLID(GREEN);
+    const uint32_t sequence_armed = PURPLE;
     const uint32_t sequence_armed_no_gps_or_no_location = DEFINE_COLOUR_SEQUENCE_SOLID(BLUE);
     const uint32_t sequence_prearm_failing = DEFINE_COLOUR_SEQUENCE(YELLOW,YELLOW,BLACK,BLACK,YELLOW,YELLOW,BLACK,BLACK,BLACK,BLACK);
     const uint32_t sequence_disarmed_good_dgps_and_location = DEFINE_COLOUR_SEQUENCE_ALTERNATE(GREEN,BLACK);
