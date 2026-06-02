@@ -240,7 +240,7 @@ void RGBLed::update()
     uint8_t blue_des = (colour & BLUE) ? brightness : _led_off;
 
     if (current_colour_sequence == PURPLE)
-        set_rgb(143, 0, 255);
+        set_rgb(127, 0, 255);
     else
         set_rgb(red_des, green_des, blue_des);
 }
